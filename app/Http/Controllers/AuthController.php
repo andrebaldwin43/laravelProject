@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,5 +46,35 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    // Show the registration form
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    // Handle the registration submission
+    public function register(Request $request)
+    {
+        // 1. Validate the form inputs
+        $fields = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'], // requires password_confirmation
+        ]);
+
+        // 2. Create and save the user
+        $user = User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => Hash::make($fields['password']),
+        ]);
+
+        // 3. Log the user in
+        Auth::login($user);
+
+        // 4. Redirect to a protected page
+        return redirect()->route('dashboard')->with('success', 'Account created successfully!');
     }
 }

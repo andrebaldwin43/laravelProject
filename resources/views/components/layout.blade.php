@@ -7,19 +7,14 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#133644] dark:bg-[#374546] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-    <header class="w-full lg:max-w-4xl max-w-83.75 text-sm mb-6 not-has-[nav]:hidden">
-        <!-- <nav>
-            <a href="/">Home</a>
-        </nav> -->
-    </header>
 
-    <main>
+<body class="flex flex-col min-h-screen bg-[#a1d7ec] dark:bg-[#657475] text-[#1b1b18] lg:justify-center ">
+    <main class="w-full grow lg:max-w-4xl max-w-83.75 m-auto">
         {{ $slot }}
     </main>
 
-    <footer>
-        <p>&copy; {{ date('Y') }} Company</p>
+    <footer class="bg-[#86a2ad] w-full m-auto text-center mt-6">
+        <p class="text-sm text-[#1b1b18] p-2">&copy; {{ date('Y') }} My Fitness Goals</p>
     </footer>
 </body>
 </html>

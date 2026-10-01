@@ -1,5 +1,4 @@
 <x-layout>
-    <x-slot name="title">Login</x-slot>
     <div class="container bg-slate-300 mx-auto max-w-md p-8 rounded-lg shadow-md mt-10  outline-2 outline-blue-500">
         <h1 class="text-2xl font-bold mb-6 text-center">Login</h1>
         <form class="flex flex-col" action="{{ url('login') }}" method="POST">

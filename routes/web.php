@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
-    // DB::insert('insert into users (name, email, password) values (?, ?, ?)', ['Andre Baldwin', 'baldwin43@gmail.com', 'test']);
-
     return view('auth.login');
 });
 

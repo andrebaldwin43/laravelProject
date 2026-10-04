@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FitnessController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -20,5 +21,11 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('fitness', [FitnessController::class, 'index'])->name('fitness');
+    Route::post('fitness', [FitnessController::class, 'store'])->name('fitness.store');
+});
+
 
 

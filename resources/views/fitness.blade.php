@@ -8,35 +8,26 @@
     </x-header>
     
 <div class="container bg-slate-300 mx-auto max-w-md p-8 rounded-lg shadow-md mt-10  outline-2 outline-blue-500">
-    <form class="flex flex-col" method="POST" action="{{ route('fitness.store') }}">
+    <form class="flex flex-col text-center" method="POST" action="{{ route('fitness.store') }}">
         @csrf
         <!-- Form fields for fitness data go here -->
         <div>
-            <label for="current_weight">Current Weight:</label>
-            <input class="bg-amber-50 border border-gray-300 p-2 mb-5 rounded" type="text" id="current_weight" name="current_weight" required>
+            <x-form.input name="current_weight" label="Current Weight" type="text" placeholder="Enter weight" required></x-form.input>
         </div>
         <div>
-            <label for="target_weight">Target Weight:</label>
-            <input class="bg-amber-50 border border-gray-300 p-2 mb-5 rounded" type="text" id="target_weight" name="target_weight" required>
+            <x-form.input name="target_weight" label="Target Weight" type="text" placeholder="Enter target weight" required></x-form.input>
         </div>
         <div>
-            <label for="height">Height:</label>
-            <input class="bg-amber-50 border border-gray-300 p-2 mb-5 rounded" type="text" id="height" name="height" required>
+            <x-form.input name="height" label="Height" type="text" placeholder="Enter height" required></x-form.input>
         </div>
         <div>
-            <label for="age">Age:</label>
-            <input class="bg-amber-50 border border-gray-300 p-2 mb-5 rounded" type="text" id="age" name="age" required>
+            <x-form.input name="age" label="Age" type="text" placeholder="Enter age" required></x-form.input>
         </div>
         <div>
-            <label for="sex">Sex:</label>
-            <select class="bg-amber-50 border border-gray-300 p-2 mb-5 rounded" id="sex" name="sex" required>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
+            <x-form.select name="sex" label="Sex" :options="['male'=>'Male','female'=>'Female','other'=>'Other']" required></x-form.select>
         </div>
         <div>
-            <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600" type="submit">Save</button>
+            <x-button title="Save"></x-button>
         </div>
     </form>
 </div>

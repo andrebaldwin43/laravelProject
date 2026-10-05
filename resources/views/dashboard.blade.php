@@ -2,10 +2,25 @@
 <x-nav></x-nav>
 <x-header title="Fitness Overview"></x-header>
 <x-layout>
+    
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-                <p class="text-sm font-medium text-gray-500">Fitness Goals</p>
-                <li class="hover:text-slate-500 transition-colors duration-300"><a href="/fitness">Fitness</a></li>
+            <div class="bg-white p-6 rounded-lg shadow-sm [&>p]:text-gray-600 [&>p]:text-sm">
+                <h1 class="text-lg font-bold text-center">Fitness Goals</h1>
+                @if ($fitness)
+                    <div class="flex gap-4" >
+                        <p class="flex-1 whitespace-nowrap ">Current Weight: </p>
+                        <p class="flex-1 text-right {{ $fitness->current_weight > $fitness->target_weight ? 'text-red-500' : 'text-green-600' }}">{{ number_format($fitness->current_weight, 0) }} lbs</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <p class="flex-1">Target Weight: </p>
+                        <p class="flex-1 text-right">{{ number_format($fitness->target_weight, 0) }} lbs</p>
+                    </div>
+                @else
+                    <p class="text-sm font-medium text-gray-500">No fitness data available.</p>
+                @endif
+                <div class="justify-center flex">
+                    <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" title="" href="/fitness">{{ $fitness ? 'Update Goals' : 'Add Goals' }}</x-link>
+                </div>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-sm">
                 <p class="text-sm font-medium text-gray-500">Example data</p>

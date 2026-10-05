@@ -24,7 +24,8 @@
             <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
             <input type="password" name="password_confirmation" id="password_confirmation" class="bg-amber-50 border border-gray-300 p-2 mb-5 rounded">
 
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded cursor-pointer" type="submit">Register</button>
+            <x-button title="Register"></x-button>
+            
         </form>
         <div>
             <p class="mt-4 text-center">Already have an account? <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Login here</a></p>    

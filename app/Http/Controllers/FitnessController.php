@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Fitness;
 
 class FitnessController extends Controller
 {
     public function index()
     {
-        return view('fitness');
+        $fitness = Fitness::where('user_id', auth()->id())->first();
+
+        return view('fitness', compact('fitness'));
     }
 
     public function store(Request $request)
@@ -16,7 +19,8 @@ class FitnessController extends Controller
         $validated = $request->validate([
             'current_weight' => 'required|numeric',
             'target_weight' => 'required|numeric',
-            'height' => 'required|string',
+            'height_ft' => 'required|integer',
+            'height_in' => 'required|integer',
             'age' => 'required|integer',
             'sex' => 'required|string',
         ]);

@@ -16,7 +16,8 @@ class Fitness extends Model
     protected $fillable = [
         'current_weight',
         'target_weight',
-        'height',
+        'height_ft',
+        'height_in',
         'age',
         'sex',
         'user_id',

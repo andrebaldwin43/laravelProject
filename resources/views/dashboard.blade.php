@@ -4,7 +4,7 @@
 <x-layout>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white p-6 rounded-lg shadow-sm [&>div]:mb-1">
-            <h1 class="text-lg font-bold text-center">Fitness Goals</h1>
+            <h1 class="text-lg font-bold text-center">Fitness Data</h1>
             @if ($fitness)
             @php
                 $bmi = ($fitness->current_weight / ( (($fitness->height_ft*12) + $fitness->height_in) ** 2)) * 703;
@@ -27,6 +27,11 @@
                     <p class="flex-1">Body Fat: </p>
                     <p class="flex-1 text-right">{{ number_format($bodyFat, 1) }}%</p>
                 </div>
+                @if ($fitness->current_weight > $fitness->target_weight)
+                    <p class="text-amber-800 mt-2 text-sm">You are {{ $fitness->current_weight - $fitness->target_weight }} lbs away from your target weight.</p>
+                    @else
+                    <p class="text-green-800">You are below your target weight.</p>
+                @endif
             @else
                 <p class="text-sm font-medium text-gray-500">No fitness data available.</p>
             @endif

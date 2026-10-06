@@ -19,6 +19,7 @@ class FitnessController extends Controller
         $validated = $request->validate([
             'current_weight' => 'required|numeric',
             'target_weight' => 'required|numeric',
+            'fitness_level' => 'required|numeric',
             'height_ft' => 'required|integer',
             'height_in' => 'required|integer',
             'age' => 'required|integer',

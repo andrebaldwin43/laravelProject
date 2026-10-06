@@ -11,6 +11,16 @@ class Fitness extends Model
 {
     use HasFactory;
 
+    public static function levels() {
+        return [
+            '1.2'   => 'Sedentary',
+            '1.375' => 'Lightly active',
+            '1.55'  => 'Moderately active',
+            '1.725' => 'Very active',
+            '1.9'   => 'Super active'
+        ];
+    }
+
     protected $table = 'fitness'; 
 
     protected $fillable = [
@@ -18,7 +28,8 @@ class Fitness extends Model
         'target_weight',
         'height_ft',
         'height_in',
-        'age',
+        'age',  
+        'fitness_level',
         'sex',
         'user_id',
         'created_at',

@@ -39,6 +39,9 @@
                     <p class="text-red-500 text-sm">{{ $message }}</p>
                 @enderror   
             </div>
+            <div>   
+                <x-form.select class="text-center" selected="{{ $fitness->fitness_level ?? '' }}" name="fitness_level" label="Fitness Level" :options="\App\Models\Fitness::levels()" required></x-form.select>
+            </div>
             <div>
                 <x-button title="Save"></x-button>
             </div>

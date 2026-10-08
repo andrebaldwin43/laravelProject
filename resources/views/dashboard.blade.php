@@ -2,47 +2,80 @@
 <x-nav></x-nav>
 <x-header title="Fitness Overview"></x-header>
 <x-layout>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow-sm [&>div]:mb-1">
-            <h1 class="text-lg font-bold text-center">Fitness Data</h1>
-            @if ($fitness)
+    <div class="space-y-6 w-1/2 m-auto">
+        <div class="bg-white p-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
+            <h1 class="text-lg font-bold text-center mb-4">Fitness Data</h1>
+            @if ($fitnessData)
             @php
-                $bmi = ($fitness->current_weight / ( (($fitness->height_ft*12) + $fitness->height_in) ** 2)) * 703;
-                $genderNumeric = $fitness->sex == 'male' ? 1 : 0;
-                $bodyFat = ($bmi * 1.20) + (0.23 * $fitness->age) - (10.89 * $genderNumeric) - 5.4;
+                $bmi = $fitnessData['bmi'] ?? 'N/A';
+                $bodyFat = $fitnessData['bodyFat'] ?? 'N/A';
+                $targetWeight = $fitnessData['target_weight'] ?? 'N/A';
+                $currentWeight = $fitnessData['current_weight'] ?? 'N/A';
             @endphp
-                <div class="flex gap-4" >
-                    <p class="flex-1 whitespace-nowrap ">Current Weight: </p>
-                    <p class="flex-1 text-right {{ $fitness->current_weight > $fitness->target_weight ? 'text-red-500' : 'text-green-600' }}">{{ number_format($fitness->current_weight, 0) }} lbs</p>
+                <div>
+                    <p>Current Weight: </p>
+                    <p class="{{ $currentWeight > $targetWeight ? 'text-red-500' : 'text-green-600' }}">{{ number_format($currentWeight, 0) }} lbs</p>
                 </div>
-                <div class="flex gap-4">
-                    <p class="flex-1">Target Weight: </p>
-                    <p class="flex-1 text-right">{{ number_format($fitness->target_weight, 0) }} lbs</p>
+                <div>
+                    <p>Target Weight: </p>
+                    <p>{{ number_format($targetWeight, 0) }} lbs</p>
                 </div>
-                <div class="flex gap-4">
-                    <p class="flex-1">BMI Estimate: </p>
-                    <p class="flex-1 text-right">{{ number_format($bmi, 1) }}</p>
+                <div>
+                    <p>BMI Estimate: </p>
+                    <p>{{ $bmi !== 'N/A' ? number_format($bmi, 1) : 'N/A' }}</p>
                 </div>
-                <div class="flex gap-4">
-                    <p class="flex-1">Body Fat: </p>
-                    <p class="flex-1 text-right">{{ number_format($bodyFat, 1) }}%</p>
+                <div>
+                    <p>Body Fat: </p>
+                    <p>{{ $bodyFat !== 'N/A' ? number_format($bodyFat, 1) . '%' : 'N/A' }}</p>
                 </div>
-                @if ($fitness->current_weight > $fitness->target_weight)
-                    <p class="text-amber-800 mt-2 text-sm">You are {{ $fitness->current_weight - $fitness->target_weight }} lbs away from your target weight.</p>
-                    @else
-                    <p class="text-green-800">You are below your target weight.</p>
+                @if ($currentWeight > $targetWeight)
+                    <p class="text-amber-800 mt-2 text-sm">You are {{ $currentWeight - $targetWeight }} lbs away from your target weight.</p>
+                @elseif ($currentWeight < $targetWeight)
+                    <p class="text-amber-800 mt-2 text-sm">You are {{ $targetWeight - $currentWeight }} lbs below your target weight.</p>
+                @else
+                    <p class="text-green-800 text-center mt-4">Congratulations! You reached your target weight.</p>
                 @endif
             @else
-                <p class="text-sm font-medium text-gray-500">No fitness data available.</p>
+                <p class="text-base text-center font-medium text-red-500">No fitness data available.</p>
             @endif
+
             <div class="justify-center flex">
-                <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" title="" href="/fitness">{{ $fitness ? 'Update Goals' : 'Add Goals' }}</x-link>
+                <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" title="" href="/fitness">{{ $fitnessData ? 'Update Goals' : 'Add Goals' }}</x-link>
             </div>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-            <p class="text-sm font-medium text-gray-500">Example data</p>
-            <p class="text-3xl font-bold text-gray-900">N/A</p>
+
+        <div class="bg-white p-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
+            <h1 class="text-lg font-bold text-center mb-4">Suggested Calorie Intake</h1>
+            <div>
+                <p>To maintain weight: </p>
+                <p>{{ number_format($fitnessData['dailyCalories'] ?? 0, 0) }} kcal</p>
+            </div>
+            @if ($fitnessData and $fitnessData['current_weight'] > $fitnessData['target_weight'])
+                <div>
+                    <p>0.5 lb/week loss: </p>
+                    <p>{{ number_format($fitnessData['mildCut'] ?? 0, 0) }} kcal</p>
+                </div>
+                <div>
+                    <p>1 lb/week loss: </p>
+                    <p>{{ number_format($fitnessData['cut'] ?? 0, 0) }} kcal</p>
+                </div>
+                <div>
+                    <p>1.5 lb/week loss: </p>
+                    <p>{{ number_format($fitnessData['aggressiveCut'] ?? 0, 0) }} kcal</p>
+                </div>
+            @endif
+            @if ($fitnessData and $fitnessData['current_weight'] < $fitnessData['target_weight'])
+                <div>
+                    <p>0.5 lb/week gain: </p>
+                    <p>{{ number_format($fitnessData['mildBulk'] ?? 0, 0) }} kcal</p>
+                </div>
+                <div>
+                    <p>1 lb/week gain: </p>
+                    <p>{{ number_format($fitnessData['bulk'] ?? 0, 0) }} kcal</p>
+                </div>
+            @endif
         </div>
+        
         <div class="bg-white p-6 rounded-lg shadow-sm">
             <p class="text-sm font-medium text-gray-500">Example data</p>
             <p class="text-3xl font-bold text-gray-900">N/A</p>

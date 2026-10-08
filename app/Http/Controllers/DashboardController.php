@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Fitness\FitnessService;
 use Illuminate\Http\Request;
 use App\Models\Fitness;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(FitnessService $fitnessService)
     {
-        $fitness = Fitness::where('user_id', auth()->id())->first();
+        $fitnessMetrics = [];
+        $fitnessData = Fitness::where('user_id', auth()->id())->first();
 
-        return view('dashboard', compact('fitness'));
+        if ($fitnessData) {
+            $fitnessMetrics = $fitnessService->getFitnessMetrics($fitnessData);
+            $fitnessData = array_merge($fitnessData ? $fitnessData->toArray() : [], $fitnessMetrics);
+        } 
+
+        return view('dashboard', compact('fitnessData'));
     }
 }

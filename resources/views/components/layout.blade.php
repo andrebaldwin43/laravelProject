@@ -9,7 +9,7 @@
 </head>
 
 <body class="flex flex-col min-h-screen bg-[#a1d7ec] dark:bg-[#657475] text-[#1b1b18] lg:justify-center ">
-    <main class="w-full grow lg:max-w-4xl max-w-83.75 m-auto">
+    <main class="w-full grow lg:max-w-6xl max-w-83.75 m-auto">
         {{ $slot }}
     </main>
 

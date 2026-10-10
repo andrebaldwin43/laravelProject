@@ -25,5 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::post('fitness', [FitnessController::class, 'store'])->name('fitness.store');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('nutrition', [App\Http\Controllers\NutritionController::class, 'index'])->name('nutrition');
+    Route::post('nutrition', [App\Http\Controllers\NutritionController::class, 'store'])->name('nutrition.store');
+});
+
 
 

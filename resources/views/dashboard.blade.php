@@ -77,8 +77,51 @@
         </div>
         
         <div class="bg-white p-6 rounded-lg shadow-sm">
-            <p class="text-sm font-medium text-gray-500">Example data</p>
-            <p class="text-3xl font-bold text-gray-900">N/A</p>
+            <h1 class="text-lg font-bold text-center mb-4">Daily Nutrition</h1>
+            @if ($nutritionData)
+                <div>
+                    <p>Calories: </p>
+                    <p>{{ number_format($nutritionData['calories'] ?? 0, 0) }} kcal</p>
+                </div>
+                <div>
+                    <p>Protein: </p>
+                    <p>{{ number_format($nutritionData['protein'] ?? 0, 0) }} g</p>
+                </div>
+                <div>
+                    <p>Carbs: </p>
+                    <p>{{ number_format($nutritionData['carbs'] ?? 0, 0) }} g</p>
+                </div>
+                <div>
+                    <p>Fat: </p>
+                    <p>{{ number_format($nutritionData['fat'] ?? 0, 0) }} g</p>
+                </div>
+                <div>
+                    <p>Fiber: </p>
+                    <p>{{ number_format($nutritionData['fiber'] ?? 0, 0) }} g</p>
+                </div>
+                <div>
+                    <p>Sugar: </p>
+                    <p>{{ number_format($nutritionData['sugar'] ?? 0, 0) }} g</p>
+                </div>
+                <div>
+                    <p>Cholesterol: </p>
+                    <p>{{ number_format($nutritionData['cholesterol'] ?? 0, 0) }} mg</p>
+                </div>
+                <div>
+                    <p>Sodium: </p>
+                    <p>{{ number_format($nutritionData['sodium'] ?? 0, 0) }} mg</p>
+                </div>
+                <div>
+                    <p>Saturated Fat: </p>
+                    <p>{{ number_format($nutritionData['saturated_fat'] ?? 0, 0) }} g</p>
+                </div>
+            @else
+                <p class="text-base text-center font-medium text-red-500">No nutrition data available.</p>
+            @endif
+
+            <div class="justify-center flex">
+                <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" title="" href="/nutrition">{{ $nutritionData ? 'Update Nutrition' : 'Add Nutrition' }}</x-link>
+            </div>
         </div>
     </div>
 </x-layout>

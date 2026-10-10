@@ -11,13 +11,13 @@
                 @error('current_weight')
                     <p class="text-red-500 text-sm">{{ $message }}</p>
                 @enderror
-                <x-form.input class="text-center" value="{{ number_format($fitness->current_weight ?? '') }}" name="current_weight" label="Current Weight" type="text" placeholder="Enter weight" required></x-form.input>
+                <x-form.input class="text-center" value="{{ number_format($fitness->current_weight ?? 0) }}" name="current_weight" label="Current Weight" type="text" placeholder="Enter weight" required></x-form.input>
             </div>
             <div>
                 @error('target_weight')
                     <p class="text-red-500 text-sm">{{ $message }}</p>
                 @enderror
-                <x-form.input class="text-center" value="{{ number_format($fitness->target_weight ?? '') }}" name="target_weight" label="Target Weight" type="text" placeholder="Enter target weight" required></x-form.input>
+                <x-form.input class="text-center" value="{{ number_format($fitness->target_weight ?? 0) }}" name="target_weight" label="Target Weight" type="text" placeholder="Enter target weight" required></x-form.input>
             </div>
             <div class="">
                 <label class="block text-center">Height</label>

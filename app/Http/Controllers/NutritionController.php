@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Nutrition\NutritionApiService;
 use Illuminate\Http\Request;
 use App\Models\Nutrition;
 
@@ -30,18 +31,29 @@ class NutritionController extends Controller
             'saturated_fat' => 'nullable|integer',
         ]);
 
-        foreach ($validatedData as $key => $value) {
+        $existingNutrition = Nutrition::getDailyNutritionForUser(auth()->id());
+        
+        foreach ($existingNutrition as $key => $value) {
             if ($value !== null) {
-                $validatedData[$key] = Nutrition::where('user_id', auth()->id())->value($key) + $value;
+                $existingNutrition[$key] = $value + $value;
             }
-        }   
-
-        $nutrition = Nutrition::updateOrCreate(
-            ['user_id' => auth()->id()],
-            $validatedData
-        );
+        }
+        
+        Nutrition::create(array_merge(['user_id' => auth()->id()], $validatedData));
 
         return redirect()->route('dashboard');
+    }
+
+    public function searchFood(Request $request)
+    {
+        $item = $request->input('query');
+        $nutritionService = app(NutritionApiService::class);
+        $foodResults = $nutritionService->searchFood($item);
+        
+        return redirect()->route('dashboard')->with([
+            'query' => $item,
+            'foodResults' => $foodResults,
+        ]);
     }
 
     public function showNutritionForm()

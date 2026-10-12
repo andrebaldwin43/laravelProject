@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FitnessController;
+use App\Http\Controllers\NutritionController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -17,7 +18,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware('auth')->group(function () {
@@ -26,9 +27,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('nutrition', [App\Http\Controllers\NutritionController::class, 'index'])->name('nutrition');
-    Route::post('nutrition', [App\Http\Controllers\NutritionController::class, 'store'])->name('nutrition.store');
+    Route::get('nutrition', [NutritionController::class, 'index'])->name('nutrition');
+    Route::post('nutrition', [NutritionController::class, 'store'])->name('nutrition.store');
+    Route::get('food/search', [NutritionController::class, 'searchFood'])->name('food.search');
 });
-
 
 

@@ -28,4 +28,23 @@ class Nutrition extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // function to get get all nutrition records for the current user and date and add them together
+    public static function getDailyNutritionForUser($userId)
+    {
+        return self::where('user_id', $userId)
+            ->whereDate('created_at', now()->toDateString())
+            ->get()
+            ->reduce(function ($carry, $item) {
+                foreach ($item->getAttributes() as $key => $value) {
+                    if (in_array($key, ['id', 'user_id', 'created_at', 'updated_at'])) {
+                        continue;
+                    }
+                    $carry[$key] = ($carry[$key] ?? 0) + $value;
+                }
+
+                return $carry;
+                
+            }, []);
+    }
 }

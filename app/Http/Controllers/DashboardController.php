@@ -13,7 +13,8 @@ class DashboardController extends Controller
     {
         $fitnessMetrics = [];
         $fitnessData = Fitness::where('user_id', auth()->id())->first();
-        $nutritionData = Nutrition::where('user_id', auth()->id())->first();
+
+        $nutritionData = Nutrition::getDailyNutritionForUser(auth()->id());
 
         if ($fitnessData) {
             $fitnessMetrics = $fitnessService->getFitnessMetrics($fitnessData);

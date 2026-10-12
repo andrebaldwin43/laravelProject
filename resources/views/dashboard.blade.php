@@ -84,7 +84,7 @@
                     <p>{{ number_format($nutritionData['saturated_fat'] ?? 0, 0) }} g</p>
                 </div>
             @else
-                <p class="text-base text-center font-medium text-red-500">No nutrition data available.</p>
+                <p class="text-base text-center font-medium text-red-500">No nutrition data available for today.</p>
             @endif
 
             <div class="justify-center flex">
@@ -92,9 +92,29 @@
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
+        <div class="bg-white p-6 rounded-lg shadow-sm">
             <h1 class="text-lg font-bold text-center mb-4">Food Look-Up</h1>
+            <form id="food-search-form" method="GET" action="{{ route('food.search') }}">
+                <div class="text-center">
+                <x-form.input class="w-full" id="query" name="query" label="Search for food:" />
+                </div>
+                <x-button class type="submit" title="Search" />
+            </form>
+
+            @if (session('foodResults'))
+                <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm">
+                    <h1 class="text-base font-bold text-center mb-4">Please select the item that matches your search:</h1>
+                    @foreach (session('foodResults')['foods'] ?? [] as $food)
+                        <div>
+                            <x-link class="text-blue-600 hover:underline text-center text-sm" href="#">
+                                <p>{{ $food['description'] ?? 'N/A' }}</p>
+                            </x-link>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
+        
     </div>
 
     <div class="bg-white p-6 mt-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">

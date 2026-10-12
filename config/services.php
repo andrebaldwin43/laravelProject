@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'nutrition' => [
+        'api_url' => env('NUTRITION_API_URL'),
+        'api_key' => env('NUTRITION_API_KEY'),
+    ],
+
 ];

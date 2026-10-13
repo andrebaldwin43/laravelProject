@@ -59,6 +59,7 @@ class NutritionApiService
         foreach ($all as $k => $v) {
             $encoded[] = rawurlencode((string) $k) . '=' . rawurlencode((string) $v);
         }
+
         $paramString = implode('&', $encoded);
 
         $baseString = 'GET&' . rawurlencode($this->baseUrl) . '&' . rawurlencode($paramString);
@@ -78,6 +79,7 @@ class NutritionApiService
                 'body' => $response->body(),
                 'query' => $query,
             ]);
+            
             return null;
         }
 

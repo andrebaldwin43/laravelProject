@@ -1,5 +1,6 @@
 
-<x-nav></x-nav>
+
+@vite('resources/js/nutrition.js')
 <x-header title="Fitness Overview"></x-header>
 <x-layout>
     <div class="grid grid-cols-3 grid-rows-1 gap-6">
@@ -46,6 +47,12 @@
 
         <div class="bg-white p-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
             <h1 class="text-lg font-bold text-center mb-4">Daily Nutrition</h1>
+            @if (session('success'))
+                <div id="flash-message" class="alert alert-success">
+                    <p class="text-green-700 text-base text-center mt-4 mb-4">{{ session('success') }}</p>
+                </div>
+            @endif
+
             @if ($nutritionData)
                 <div>
                     <p>Calories: </p>
@@ -121,6 +128,14 @@
                             <p>{{ number_format($value ?? 0, 0) }} g</p>
                         </div>
                     @endforeach
+                    <form method="POST" action="{{ route('nutrition.addFromSearch') }}">
+                        @csrf
+                        <x-button class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" type="submit" title="Add to daily nutrition" />
+                        @foreach (session('nutritionData') as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                    </form>
+                    <p class="text-red-500 text-sm mt-2">Please review the nutrition data before adding it to your daily intake.</p>
                 </div>
             @else
                 <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm">

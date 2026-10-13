@@ -104,11 +104,12 @@
             <h1 class="text-lg font-bold text-center mb-4">Food Look-Up</h1>
             <form id="food-search-form" method="GET" action="{{ route('food.search') }}">
                 <div class="text-center">
-                <x-form.input class="w-full" id="query" name="query" label="Search for food:" />
+                    <x-form.input class="w-full" id="query" name="query" label="Search for food:" />
                 </div>
-                <x-button class type="submit" title="Search" />
+                <div class="text-center">
+                    <x-button class="py-1! px-4! mt-0!" type="submit" title="Search" />
+                </div>
             </form>
-
             @if (session('foodResults'))
                 <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm">
                     <h1 class="text-base font-bold text-center mb-4">Please select the item that best matches your search:</h1>
@@ -129,22 +130,32 @@
                             <p>{{ number_format($value ?? 0, 0) }} g</p>
                         </div>
                     @endforeach
+
                     <form method="POST" action="{{ route('nutrition.addFromSearch') }}">
                         @csrf
-                        <x-button class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" type="submit" title="Add to daily nutrition" />
+                        <div class="text-center">
+                            <x-button class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" type="submit" title="Add to daily nutrition" />
+                        </div>
                         @foreach (session('nutritionData') as $key => $value)
                             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                         @endforeach
+                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                     </form>
+
                     <p class="text-red-500 text-sm mt-2">Please review the nutrition data before adding it to your daily intake.</p>
                 </div>
-            @else
-                <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm">
-                    <h1 class="text-base font-bold text-center mb-4">No Nutrition Data Available</h1>
+            @endif
+
+            @if (session('errors') && session('errors')->any())
+                <div id="flash-message" class="bg-red-100 p-6 mt-6 rounded-lg shadow-sm">
+                    <ul>
+                        @foreach (session('errors')->all() as $error)
+                            <li class="text-red-500 text-sm">{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
         </div>
-        
     </div>
 
     <div class="bg-white p-6 mt-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">

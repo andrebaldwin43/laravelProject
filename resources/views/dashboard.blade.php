@@ -1,6 +1,7 @@
 
 
 @vite('resources/js/nutrition.js')
+<x-nav></x-nav>
 <x-header title="Fitness Overview"></x-header>
 <x-layout>
     <div class="grid grid-cols-3 grid-rows-1 gap-6">

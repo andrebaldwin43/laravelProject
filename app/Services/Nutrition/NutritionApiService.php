@@ -13,9 +13,9 @@ class NutritionApiService
 
     public function __construct()
     {
-        $this->baseUrl = 'https://platform.fatsecret.com/rest/server.api';
-        $this->consumerKey = config('services.fatsecret.consumer_key');      // or consumer_key
-        $this->consumerSecret = config('services.fatsecret.consumer_secret'); // or consumer_secret
+        $this->baseUrl = config('services.fatsecret.api_url');
+        $this->consumerKey = config('services.fatsecret.consumer_key');
+        $this->consumerSecret = config('services.fatsecret.consumer_secret');
     }
 
     public function searchFood(string $query, int $maxResults = 5): ?array

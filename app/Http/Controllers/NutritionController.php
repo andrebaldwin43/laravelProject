@@ -60,6 +60,27 @@ class NutritionController extends Controller
         ]);
     }
 
+    public function addNutritionFromSearch(Request $request)
+    {
+        $nutritionData = $request->only([
+            'calories',
+            'protein',
+            'carbohydrate',
+            'fat',
+            'fiber',
+            'sugar',
+            'cholesterol',
+            'sodium',
+            'saturated_fat',
+        ]);
+
+        Nutrition::create(array_merge(['user_id' => auth()->id()], $nutritionData));
+
+        session()->flash('success', 'Nutrition data added successfully.');
+
+        return redirect()->route('dashboard');
+    }
+
     public function showNutritionForm()
     {
         return view('nutrition');

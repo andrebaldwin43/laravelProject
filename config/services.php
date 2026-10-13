@@ -38,6 +38,13 @@ return [
     'nutrition' => [
         'api_url' => env('NUTRITION_API_URL'),
         'api_key' => env('NUTRITION_API_KEY'),
+        'api_secret' => env('NUTRITION_API_SECRET'),
+    ],
+
+    'fatsecret' => [
+        'api_url' => env('FATSECRET_API_URL'),
+        'consumer_key' => env('FATSECRET_CONSUMER_KEY'),
+        'consumer_secret' => env('FATSECRET_CONSUMER_SECRET'),
     ],
 
 ];

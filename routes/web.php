@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('nutrition', [NutritionController::class, 'index'])->name('nutrition');
     Route::post('nutrition', [NutritionController::class, 'store'])->name('nutrition.store');
     Route::get('food/search', [NutritionController::class, 'searchFood'])->name('food.search');
+    Route::get('food/search/results/{foodid}', [NutritionController::class, 'showFoodSearchResults'])->name('food.results');
 });
 
 

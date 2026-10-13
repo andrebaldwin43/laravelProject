@@ -56,8 +56,8 @@
                     <p>{{ number_format($nutritionData['protein'] ?? 0, 0) }} g</p>
                 </div>
                 <div>
-                    <p>Carbs: </p>
-                    <p>{{ number_format($nutritionData['carbs'] ?? 0, 0) }} g</p>
+                    <p>Carbohydrates: </p>
+                    <p>{{ number_format($nutritionData['carbohydrate'] ?? 0, 0) }} g</p>
                 </div>
                 <div>
                     <p>Fat: </p>
@@ -103,14 +103,28 @@
 
             @if (session('foodResults'))
                 <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm">
-                    <h1 class="text-base font-bold text-center mb-4">Please select the item that matches your search:</h1>
-                    @foreach (session('foodResults')['foods'] ?? [] as $food)
+                    <h1 class="text-base font-bold text-center mb-4">Please select the item that best matches your search:</h1>
+                    @foreach (session('foodResults')['foods']['food'] ?? [] as $food)
                         <div>
-                            <x-link class="text-blue-600 hover:underline text-center text-sm" href="#">
-                                <p>{{ $food['description'] ?? 'N/A' }}</p>
+                            <x-link class="text-blue-600 hover:underline text-center text-sm" href="{{ route('food.results', ['foodid' => $food['food_id'] ?? '']) }}">
+                                <p>{{ $food['food_name'] ?? 'N/A' }}</p>
                             </x-link>
                         </div>
                     @endforeach
+                </div>
+            @elseif (session('nutritionData'))
+                <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
+                    <h1 class="text-base font-bold text-center mb-4">Nutrition Data</h1>
+                    @foreach (session('nutritionData') as $key => $value)
+                        <div>
+                            <p>{{ ucfirst(str_replace('_', ' ', $key)) }}: </p>
+                            <p>{{ number_format($value ?? 0, 0) }} g</p>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm">
+                    <h1 class="text-base font-bold text-center mb-4">No Nutrition Data Available</h1>
                 </div>
             @endif
         </div>

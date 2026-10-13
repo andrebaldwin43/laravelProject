@@ -13,7 +13,7 @@ class Nutrition extends Model
         'user_id',
         'calories',
         'protein',
-        'carbs',
+        'carbohydrate',
         'fat',
         'fiber',
         'sugar',
@@ -40,11 +40,12 @@ class Nutrition extends Model
                     if (in_array($key, ['id', 'user_id', 'created_at', 'updated_at'])) {
                         continue;
                     }
+
                     $carry[$key] = ($carry[$key] ?? 0) + $value;
                 }
 
                 return $carry;
-                
+
             }, []);
     }
 }

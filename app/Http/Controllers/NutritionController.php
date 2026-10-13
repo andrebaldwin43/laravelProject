@@ -42,6 +42,10 @@ class NutritionController extends Controller
     {
         $item = $request->input('query');
     
+        if (!$item) {
+            return redirect()->route('dashboard')->withErrors(['query' => 'Please enter a search term.']);
+        }
+        
         $foodResults = $this->nutritionApiService->searchFood($item);
 
         return redirect()->route('dashboard')->with([

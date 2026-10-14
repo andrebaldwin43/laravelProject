@@ -1,7 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\AuthController;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\FitnessController;
 use App\Http\Controllers\NutritionController;
 
@@ -33,5 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::get('food/search/results/{foodid}', [NutritionController::class, 'showFoodSearchResults'])->name('food.results');
     Route::post('nutrition/add-from-search', [NutritionController::class, 'addNutritionFromSearch'])->name('nutrition.addFromSearch');
 });
+
+Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendPasswordResetLink'])->middleware('guest')->name('password.email');
+
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->middleware('guest')->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('guest')->name('password.update');
+
+
 
 

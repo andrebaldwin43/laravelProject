@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Contracts\Auth\CanResetPassword;
 use App\Models\Fitness;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPassword
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;

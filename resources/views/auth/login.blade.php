@@ -25,6 +25,9 @@
             <div>
                 <p class="mt-4 text-center">Don't have an account? <a href="{{ route('register') }}" class="text-blue-500 hover:underline">Register here</a></p>
             </div>
+            <div class="mt-4 text-center">
+                <a href="{{ route('password.request') }}" class="text-blue-500 hover:underline">Forgot your password?</a>
+            </div>
         </form>
     </div>
 </x-layout>

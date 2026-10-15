@@ -37,7 +37,7 @@
                     <x-button class="mt-auto py-1! px-4! " title="Change Password"></x-button>
                 </div>
 
-                <span class="text-gray-600 text-sm mt-4 text-center block">Password last updated on: {{ $user->password_last_updated_at ? $user->password_last_updated_at->format('F j, Y, g:i a') : 'N/A' }}</span>
+                <span class="text-gray-600 text-sm mt-4 text-center block">Password last updated on: {{ $user->password_last_updated ? $user->password_last_updated->format('F j, Y, g:i a') : 'N/A' }}</span>
             </form>
 
         </div>

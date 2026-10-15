@@ -9,5 +9,5 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             flash.remove();
         }, 500); // wait for fade-out
-    }, 3000); // 3 seconds
+    }, 5000); // 5 seconds
 });

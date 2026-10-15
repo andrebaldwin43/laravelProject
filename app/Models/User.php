@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use App\Models\Fitness;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'password_last_updated'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements CanResetPassword
 {
@@ -30,6 +30,7 @@ class User extends Authenticatable implements CanResetPassword
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'password_last_updated' => 'datetime',
         ];
     }
 

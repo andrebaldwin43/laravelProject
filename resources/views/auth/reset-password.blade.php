@@ -7,21 +7,16 @@
 
         <form class="text-2xl font-bold mb-6 text-center" method="POST" action="{{ route('password.update') }}">
             @csrf
-
-            <!-- Password Reset Token -->
             <input type="hidden" name="token" value="{{ $token }}">
 
-            <!-- Email Address -->
             <div>
                 <x-form.input label="Email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
-            <!-- Password -->
             <div class="mt-4">
                 <x-form.input label="Password" id="password" class="block mt-1 w-full" type="password" name="password" required />
             </div>
 
-            <!-- Confirm Password -->
             <div class="mt-4">
                 <x-form.input label="Confirm Password" id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
             </div>

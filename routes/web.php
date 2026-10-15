@@ -40,6 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::post('nutrition/add-from-search', [NutritionController::class, 'addNutritionFromSearch'])->name('nutrition.addFromSearch');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('account', [\App\Http\Controllers\AccountController::class, 'index'])->name('account');
+    Route::post('account', [\App\Http\Controllers\AccountController::class, 'update'])->name('account.update');
+    Route::post('account/password', [\App\Http\Controllers\AccountController::class, 'updatePassword'])->name('account.password.update');
+});
+
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->middleware('guest')->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendPasswordResetLink'])->middleware('guest')->name('password.email');
 

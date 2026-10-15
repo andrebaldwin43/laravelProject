@@ -1,6 +1,3 @@
-
-
-@vite('resources/js/nutrition.js')
 <x-nav></x-nav>
 <x-header title="Fitness Overview"></x-header>
 <x-layout>
@@ -48,12 +45,6 @@
 
         <div class="bg-white p-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
             <h1 class="text-lg font-bold text-center mb-4">Daily Nutrition</h1>
-            @if (session('success'))
-                <div id="flash-message" class="alert alert-success">
-                    <p class="text-green-700 text-base text-center mt-4 mb-4">{{ session('success') }}</p>
-                </div>
-            @endif
-
             @if ($nutritionData)
                 <div>
                     <p>Calories: </p>
@@ -110,6 +101,7 @@
                     <x-button class="py-1! px-4! mt-0!" type="submit" title="Search" />
                 </div>
             </form>
+
             @if (session('foodResults'))
                 <div class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm">
                     <h1 class="text-base font-bold text-center mb-4">Please select the item that best matches your search:</h1>
@@ -136,9 +128,11 @@
                         <div class="text-center">
                             <x-button class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" type="submit" title="Add to daily nutrition" />
                         </div>
+
                         @foreach (session('nutritionData') as $key => $value)
                             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                         @endforeach
+
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                     </form>
 

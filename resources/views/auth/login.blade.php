@@ -6,12 +6,7 @@
             <x-form.input name="email" label="Email" type="email" value="{{ old('email') }}" required autofocus></x-form.input>
             <x-form.input name="password" label="Password" type="password" required></x-form.input>
             
-            @error('password')
-                <span style="color: red;">{{ $message }}</span>
-            @enderror
-            @error('email')
-                <span class="mb-4" style="color: red;">{{ $message }}</span>
-            @enderror
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
             <!-- Remember Me Checkbox -->
             <div>

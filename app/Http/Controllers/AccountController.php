@@ -8,7 +8,6 @@ use App\Models\User;
 
 class AccountController extends Controller
 {
-    // Add your account-related methods here
     public function index()
     {
         $user = Auth::user();
@@ -33,7 +32,7 @@ class AccountController extends Controller
         $user = Auth::user();
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|confirmed'
         ]);
 
         if (!\Hash::check($request->current_password, $user->password)) {
@@ -41,7 +40,8 @@ class AccountController extends Controller
         }
 
         $user->update([
-            'password' => \Hash::make($request->password),
+            'password' => $request->password,
+            'password_last_updated' => now(),
         ]);
 
         return redirect()->route('account')->with('success', 'Password updated successfully!');

@@ -1,7 +1,7 @@
 <x-nav></x-nav>
 <x-header title="Fitness Overview"></x-header>
 <x-layout>
-    <div class="grid grid-cols-3 grid-rows-1 gap-6
+    <div class="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-6
         [&>div]:bg-white [&>div]:rounded-lg [&>div]:p-6 [&>div]:shadow-sm [&>div]:flex [&>div]:flex-col
         [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4"
      >
@@ -159,9 +159,9 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-4 bg-white p-6 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
-        <div class="col-span-1 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 border-r pr-2 border-gray-500">
-            <h1>Suggested Nutrition</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-6 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
+        <div class="col-span-1 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 sm:border-r pr-2 border-gray-500">
+            <h1>Suggested Calories</h1>
             <div>
                 <p>To maintain weight: </p>
                 <p>{{ number_format($fitnessData['dailyCalories'] ?? 0, 0) }} cal</p>
@@ -192,7 +192,7 @@
             @endif
         </div>
 
-        <div class="col-span-2 [&>div]:gap-10 [&>div]:flex [&>div]:mb-1 [&>div]:justify-end mx-auto">
+        <div class="hidden sm:block col-span-2 [&>div]:gap-10 [&>div]:flex [&>div]:mb-1 [&>div]:justify-end mx-auto">
            <h1>General FDA / Dietary Guidelines</h1>
            <div>
                 <p class="w-32 text-left">Carbohydrates: </p>

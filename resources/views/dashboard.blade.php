@@ -1,9 +1,12 @@
 <x-nav></x-nav>
 <x-header title="Fitness Overview"></x-header>
 <x-layout>
-    <div class="grid grid-cols-3 grid-rows-1 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-            <h1 class="text-lg font-bold text-center mb-4">Fitness Data</h1>
+    <div class="grid grid-cols-3 grid-rows-1 gap-6
+        [&>div]:bg-white [&>div]:rounded-lg [&>div]:p-6 [&>div]:shadow-sm [&>div]:flex [&>div]:flex-col
+        [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4"
+     >
+        <div>
+            <h1>Fitness Data</h1>
             @if ($fitnessData)
                 @php
                     $bmi = $fitnessData['bmi'] ?? 'N/A';
@@ -29,26 +32,26 @@
                         <p>{{ $bodyFat !== 'N/A' ? number_format($bodyFat, 1) . '%' : 'N/A' }}</p>
                     </div>
                     @if ($currentWeight > $targetWeight)
-                        <p class="text-amber-800 mt-3 text-sm text-center">You are {{ $currentWeight - $targetWeight }} lbs away from your target weight.</p>
+                        <p class="text-amber-800 mt-3 mb-4 text-sm text-center">You are {{ $currentWeight - $targetWeight }} lbs away from your target weight.</p>
                     @elseif ($currentWeight < $targetWeight)
-                        <p class="text-amber-800 mt-3 text-sm text-center">You are {{ $targetWeight - $currentWeight }} lbs below your target weight.</p>
+                        <p class="text-amber-800 mt-3 mb-4 text-sm text-center">You are {{ $targetWeight - $currentWeight }} lbs below your target weight.</p>
                     @else
-                        <p class="text-green-800 text-center mt-4">Congratulations! You reached your target weight.</p>
+                        <p class="text-green-800 text-center mt-4 mb-4">Congratulations! You reached your target weight.</p>
                     @endif
             @else
                     <p class="text-base text-center font-medium text-red-500">No fitness data available.</p>
             @endif
                 </div>
 
-            <div class="justify-center flex">
-                <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" title="" href="/fitness">{{ $fitnessData ? 'Update Goals' : 'Add Goals' }}</x-link>
+            <div class="justify-center flex mt-auto">
+                <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4!" title="" href="/fitness">{{ $fitnessData ? 'Update Goals' : 'Add Goals' }}</x-link>
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-            <h1 class="text-lg font-bold text-center mb-4">Daily Nutrition</h1>
+        <div>
+            <h1>Daily Nutrition</h1>
             @if ($nutritionData)
-                <div class="h-3/4 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1">
+                <div class="h-3/4 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 mb-2">
                     <div>
                         <p>Calories: </p>
                         <p>{{ number_format($nutritionData['calories'] ?? 0, 0) }} cal</p>
@@ -90,13 +93,13 @@
                 <p class="text-base text-center font-medium text-red-500">No nutrition data available for today.</p>
             @endif
 
-            <div class="justify-center flex">
-                <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4! mt-4" title="" href="/nutrition">{{ $nutritionData ? 'Update Nutrition' : 'Add Nutrition' }}</x-link>
+            <div class="justify-center flex mt-auto">
+                <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4!" title="" href="/nutrition">{{ $nutritionData ? 'Update Nutrition' : 'Add Nutrition' }}</x-link>
             </div>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-            <h1 class="text-lg font-bold text-center mb-4">Food Look-Up</h1>
+        <div>
+            <h1>Food Look-Up</h1>
             <form id="food-search-form" method="GET" action="{{ route('food.search') }}">
                 <div class="text-center">
                     <x-form.input class="w-full" id="query" name="query" label="Search for food:" />
@@ -156,8 +159,9 @@
         </div>
     </div>
 
-    <div class="bg-white p-6 mt-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
-            <h1 class="text-lg font-bold text-center mb-4">Suggested Calorie Intake</h1>
+    <div class="flex flex-col bg-white p-6 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
+        <h1>Suggested Nutrition</h1>
+        <div class="w-1/4 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1">
             <div>
                 <p>To maintain weight: </p>
                 <p>{{ number_format($fitnessData['dailyCalories'] ?? 0, 0) }} cal</p>
@@ -187,4 +191,9 @@
                 </div>
             @endif
         </div>
+
+        <div class="[&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1">
+           
+        </div>
+    </div>
 </x-layout>

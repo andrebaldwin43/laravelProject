@@ -159,9 +159,9 @@
         </div>
     </div>
 
-    <div class="flex flex-col bg-white p-6 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
-        <h1>Suggested Nutrition</h1>
-        <div class="w-1/4 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1">
+    <div class="grid grid-cols-3 gap-4 bg-white p-6 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
+        <div class="col-span-1 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 border-r pr-2 border-gray-500">
+            <h1>Suggested Nutrition</h1>
             <div>
                 <p>To maintain weight: </p>
                 <p>{{ number_format($fitnessData['dailyCalories'] ?? 0, 0) }} cal</p>
@@ -192,8 +192,20 @@
             @endif
         </div>
 
-        <div class="[&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1">
-           
+        <div class="col-span-2 [&>div]:gap-10 [&>div]:flex [&>div]:mb-1 [&>div]:justify-end mx-auto">
+           <h1>General FDA / Dietary Guidelines</h1>
+           <div>
+                <p class="w-32 text-left">Carbohydrates: </p>
+                <p>45%–65% of daily calories (4 calories per gram)</p>
+            </div>
+            <div>
+                <p class="w-32 text-left">Proteins: </p>
+                <p>10%–35% of daily calories (4 calories per gram)</p>
+            </div>
+            <div>
+                <p class="w-32 text-left">Fats: </p>
+                <p>20%–35% of daily calories (9 calories per gram)</p>
+            </div>  
         </div>
     </div>
 </x-layout>

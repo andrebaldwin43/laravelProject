@@ -1,3 +1,4 @@
+// Flash message fade-out functionality
 document.addEventListener('DOMContentLoaded', () => {
     const flash = document.getElementById('flash-message');
     if (!flash) return;
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000); // 5 seconds
 });
 
+// Mobile menu toggle functionality
 const button = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
 
@@ -26,3 +28,13 @@ const button = document.getElementById('menu-toggle');
             button.setAttribute('aria-expanded', 'false');
         });
     });
+
+    // Hide food search section if results or nutrition data are present
+    const foodLookup = document.getElementById('food-lookup');
+    const foodResults = document.getElementById('food-results');
+    const nutritionData = document.getElementById('nutrition-data');
+
+    if (foodResults || nutritionData) {
+        foodLookup?.classList.add('hidden');
+    }
+   

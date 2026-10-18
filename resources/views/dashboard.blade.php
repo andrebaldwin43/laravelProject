@@ -103,7 +103,7 @@
             <h1>Food Look-Up</h1>
                 <form id="food-search-form" method="GET" action="{{ route('food.search') }}">
                     <div class="text-center">
-                        <x-form.input class="w-full" id="query" name="query" label="Search for food:" />
+                        <x-form.input required class="w-full" id="query" name="query" label="Search for food:" />
                     </div>
                     <div class="text-center">
                         <x-button class="py-1! px-4! mt-0!" type="submit" title="Search" />
@@ -127,7 +127,8 @@
                         </x-link>
                     </div>
                 </div>
-            @elseif (session('nutritionData'))
+            @endif
+            @if (session('nutritionData'))
                 <div id="nutrition-data" class="bg-amber-100 p-6 mt-6 rounded-lg shadow-sm [&>div]:mb-1 [&>div]:flex [&>div]:gap-4 [&_p]:flex-1 [&_p:nth-of-type(2)]:text-right">
                     <h1 class="text-base font-bold text-center mb-4">Nutrition Data</h1>
                     @foreach (session('nutritionData') as $key => $value)

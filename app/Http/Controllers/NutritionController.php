@@ -40,13 +40,21 @@ class NutritionController extends Controller
 
     public function searchFood(Request $request)
     {
-        $item = $request->input('query');
+        $item = $request->input('query', '');
     
         if (!$item) {
-            return redirect()->route('dashboard')->withErrors(['query' => 'Please enter a search term.']);
+            return redirect()->route('dashboard');
         }
         
         $foodResults = $this->nutritionApiService->searchFood($item);
+
+        if (isset($foodResults['error'])) {
+            return redirect()->route('dashboard')->withErrors(['query' => 'Food search may not be available at the moment. Please try again later.']);
+        }
+
+        if (!$foodResults) {
+            return redirect()->route('dashboard')->withErrors(['query' => 'No food results found for your search.']);
+        }
 
         return redirect()->route('dashboard')->with([
             'foodResults' => $foodResults,
@@ -56,6 +64,14 @@ class NutritionController extends Controller
     public function showFoodSearchResults($foodid)
     {
         $fooditem = $this->nutritionApiService->getFoodById($foodid);
+
+        if (!$fooditem) {
+            return redirect()->route('dashboard')->withErrors(['query' => 'No nutrition details found for the selected item.']);
+        }
+
+        if (isset($fooditem['error'])) {
+            return redirect()->route('dashboard')->withErrors(['query' => 'Food details may not be available at the moment. Please try again later.']);
+        }
 
         $nutritionData = app(NutritionDataParserService::class)->parse($fooditem);
 

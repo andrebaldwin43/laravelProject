@@ -38,11 +38,11 @@
                     @else
                         <p class="text-green-800 text-center mt-4 mb-4">Congratulations! You reached your target weight.</p>
                     @endif
-            @else
-                    <p class="text-base text-center font-medium text-red-500">No fitness data available.</p>
-            @endif
                 </div>
-
+            @else
+                <p class="text-base text-center font-medium text-red-500">No fitness data available.</p>
+            @endif
+                
             <div class="justify-center flex mt-auto">
                 <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4!" title="" href="/fitness">{{ $fitnessData ? 'Update Goals' : 'Add Goals' }}</x-link>
             </div>

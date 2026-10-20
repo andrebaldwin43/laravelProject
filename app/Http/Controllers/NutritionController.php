@@ -23,6 +23,7 @@ class NutritionController extends Controller
     {
         $validatedData = $request->validate([
             'calories'      => 'nullable|integer',
+            'calorie_target' => 'nullable|integer',
             'protein'       => 'nullable|integer',
             'carbohydrate'  => 'nullable|integer',
             'fat'           => 'nullable|integer',
@@ -84,6 +85,7 @@ class NutritionController extends Controller
     {
         $nutritionData = $request->only([
             'calories',
+            'calorie_target',
             'protein',
             'carbohydrate',
             'fat',

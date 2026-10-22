@@ -16,9 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('calories')->nullable();
-            $table->integer('calorie_target')->nullable();
             $table->integer('protein')->nullable();
-            $table->integer('carbohydrate')->nullable();
+            $table->integer('carbs')->nullable();
             $table->integer('fat')->nullable();
             $table->integer('fiber')->nullable();
             $table->integer('sugar')->nullable();

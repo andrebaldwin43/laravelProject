@@ -12,7 +12,6 @@ class Nutrition extends Model
     protected $fillable = [
         'user_id',
         'calories',
-        'calorie_target',
         'protein',
         'carbohydrate',
         'fat',

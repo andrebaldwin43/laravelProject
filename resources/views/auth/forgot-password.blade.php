@@ -6,7 +6,10 @@
         <div>
             <x-form.input name="email" label="Email" type="email" value="{{ old('email') }}" required autofocus></x-form.input>
         </div>
-        <x-button title="Send Password Reset Link"></x-button>
+        <x-form.button title="Send Password Reset Link"></x-form.button>
+        <div class="mt-4 text-center">
+            <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Back to Login</a>
+        </div>  
     </form>
 </div>
 </x-layout>

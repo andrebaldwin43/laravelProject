@@ -22,9 +22,10 @@
             </div>
 
             <div class="flex items-center justify-center mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
+                <x-form.button title="Reset Password"></x-form.button>
+            </div>
+            <div class="mt-4 text-center">
+                <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Back to Login</a>
             </div>
         </form>
 

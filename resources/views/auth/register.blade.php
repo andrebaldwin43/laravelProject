@@ -24,7 +24,7 @@
             <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
             <input type="password" name="password_confirmation" id="password_confirmation" class="bg-amber-50 border border-gray-300 p-2 mb-5 rounded">
 
-            <x-button title="Register"></x-button>
+            <x-form.button title="Register"></x-form.button>
             
         </form>
         <div>

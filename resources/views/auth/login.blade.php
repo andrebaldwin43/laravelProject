@@ -15,7 +15,7 @@
                 </label>
             </div>
 
-            <x-button title="Login"></x-button>
+            <x-form.button title="Login"></x-form.button>
             
             <div>
                 <p class="mt-4 text-center">Don't have an account? <a href="{{ route('register') }}" class="text-blue-500 hover:underline">Register here</a></p>

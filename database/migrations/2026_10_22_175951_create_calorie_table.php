@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('calorie', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->date('date');
             $table->integer('target_calories');
+            $table->timestamps();
         });
     }
 

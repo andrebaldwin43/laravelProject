@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="flex flex-col justify-center mt-6">
-                    <x-button class="py-1! px-4!" title="Update Account"></x-button>
+                    <x-form.button class="py-1! px-4!" title="Update Account"></x-form.button>
                     <span class="text-gray-600 mt-4 text-sm text-center block">
                         Account last updated on: {{ $user->updated_at ? $user->updated_at->format('F j, Y, g:i a') : 'N/A' }}
                     </span>
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="flex flex-col justify-center mt-6">
-                    <x-button class="py-1! px-4!" title="Change Password"></x-button>
+                    <x-form.button class="py-1! px-4!" title="Change Password"></x-form.button>
                     <span class="text-gray-600 mt-4 text-sm text-center block">
                         Password last updated on: {{ $user->password_last_updated ? $user->password_last_updated->format('F j, Y, g:i a') : 'N/A' }}
                     </span>

@@ -46,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::post('account/password', [\App\Http\Controllers\AccountController::class, 'updatePassword'])->name('account.password.update');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::post('calorie', [\App\Http\Controllers\CalorieController::class, 'store'])->name('calorie.store');
+});
+
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->middleware('guest')->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendPasswordResetLink'])->middleware('guest')->name('password.email');
 

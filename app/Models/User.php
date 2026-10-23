@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use App\Models\Fitness;
+use App\Models\Calorie;
 
 #[Fillable(['name', 'email', 'password', 'password_last_updated'])]
 #[Hidden(['password', 'remember_token'])]
@@ -37,5 +38,10 @@ class User extends Authenticatable implements CanResetPassword
     public function fitness(): HasMany
     {
         return $this->hasMany(Fitness::class);
+    }
+
+    public function calorie(): HasMany
+    {
+        return $this->hasMany(Calorie::class);
     }
 }

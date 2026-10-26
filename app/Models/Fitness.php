@@ -24,6 +24,7 @@ class Fitness extends Model
     protected $table = 'fitness'; 
 
     protected $fillable = [
+        'daily_calories',
         'current_weight',
         'target_weight',
         'height_ft',

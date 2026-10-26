@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('height')->nullable();
             $table->integer('age')->nullable();
             $table->string('sex')->nullable();
+            $table->integer('daily_calories')->nullable();
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

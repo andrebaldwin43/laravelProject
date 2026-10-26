@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Calorie;
 use App\Services\Fitness\FitnessService;
 use Illuminate\Http\Request;
 use App\Models\Fitness;
@@ -14,7 +13,6 @@ class DashboardController extends Controller
     {
         $fitnessMetrics = [];
         $fitnessData = Fitness::where('user_id', auth()->id())->first();
-        $calorieData = Calorie::where('user_id', auth()->id())->where('date', now()->toDateString())->first();
 
         $nutritionData = Nutrition::getDailyNutritionForUser(auth()->id());
 
@@ -23,6 +21,6 @@ class DashboardController extends Controller
             $fitnessData = array_merge($fitnessData ? $fitnessData->toArray() : [], $fitnessMetrics);
         } 
 
-        return view('dashboard', compact('fitnessData', 'nutritionData', 'calorieData'));
+        return view('dashboard', compact('fitnessData', 'nutritionData'));
     }
 }

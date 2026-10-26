@@ -19,7 +19,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-6 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
         <div class="sm:border-r pr-2 border-gray-500">
-            @include('partials.target-calorie-card', ['calorieData' => $calorieData])
+            @include('partials.target-calorie-card', ['calorieData' => $fitnessData['daily_calories'] ?? null])
         </div>
         
         <div class="[&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 sm:border-r pr-2 border-gray-500">

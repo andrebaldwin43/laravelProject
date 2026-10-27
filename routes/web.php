@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('food/search', [NutritionController::class, 'searchFood'])->name('food.search');
     Route::get('food/search/results/{foodid}', [NutritionController::class, 'showFoodSearchResults'])->name('food.results');
     Route::post('nutrition/add-from-search', [NutritionController::class, 'addNutritionFromSearch'])->name('nutrition.addFromSearch');
+    Route::get('/nutrition/totals', [NutritionController::class, 'totals'])->name('nutrition.totals');
 });
 
 Route::middleware('auth')->group(function () {

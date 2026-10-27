@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('calorie', [\App\Http\Controllers\CalorieController::class, 'store'])->name('calorie.store');
+    Route::get('calorie/edit', [\App\Http\Controllers\CalorieController::class, 'edit'])->name('calorie.edit');
 });
 
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->middleware('guest')->name('password.request');

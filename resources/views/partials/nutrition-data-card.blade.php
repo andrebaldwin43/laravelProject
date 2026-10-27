@@ -2,18 +2,6 @@
 @if ($nutritionData)
     <div class="h-3/4 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 mb-2">
         <div>
-            <p>Calories: </p>
-            <p>{{ number_format($nutritionData['calories'] ?? 0, 0) }} cal</p>
-        </div>
-        <div>
-            <p>Protein: </p>
-            <p>{{ number_format($nutritionData['protein'] ?? 0, 0) }} g</p>
-        </div>
-        <div>
-            <p>Carbohydrates: </p>
-            <p>{{ number_format($nutritionData['carbohydrate'] ?? 0, 0) }} g</p>
-        </div>
-        <div>
             <p>Fat: </p>
             <p>{{ number_format($nutritionData['fat'] ?? 0, 0) }} g</p>
         </div>

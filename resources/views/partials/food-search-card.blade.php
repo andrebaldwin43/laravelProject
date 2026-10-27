@@ -37,7 +37,7 @@
                 </div>
             @endforeach
 
-            <form method="POST" action="{{ route('nutrition.addFromSearch') }}">
+            <form id="add-nutrition-form" method="POST" action="{{ route('nutrition.addFromSearch') }}">
                 @csrf
                 <p class="text-red-600 text-sm mt-4 text-center">Please review the nutrition data before adding it to your daily intake.</p>
                 <div class="text-center">

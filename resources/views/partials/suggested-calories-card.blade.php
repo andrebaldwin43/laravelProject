@@ -29,7 +29,11 @@
     </div>
 @endif
 @if (!$fitnessData)
-    <div>
-        <p class="text-center text-red-500">Please add your fitness goals to calculate suggested calories.</p>
+    <div class="h-1/2 justify-center!">
+        <p class="text-center! text-red-500">Please add your fitness goals to calculate suggested calories.</p>
+    </div>
+
+    <div class="justify-center!">
+        <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4!" title="" href="{{ route('fitness') }}">{{ 'Add' }}</x-link>
     </div>
 @endif

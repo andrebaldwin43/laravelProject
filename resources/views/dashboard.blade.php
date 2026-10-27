@@ -9,8 +9,9 @@
             @include('partials.fitness-data-card', ['fitnessData' => $fitnessData])
         </div>
 
-        <div>
-            @include('partials.nutrition-data-card', ['nutritionData' => $nutritionData])
+        <div class="[&_h2]:text-center">
+            <x-progress-ring class="h-60 shadow-none!" id="ring-calories" title="Calories"
+                :value="$remainingCalories" :max="$goalCalories" label="Remaining" />
         </div>
 
         <div>
@@ -36,15 +37,11 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-6 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
         <div class="sm:border-r pr-2 border-gray-500">
-            @include('partials.target-calorie-card', ['calorieData' => $fitnessData['daily_calories'] ?? null])
-        </div>
-        
-        <div class="[&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 sm:border-r pr-2 border-gray-500">
-            @include('partials.suggested-calories-card', ['fitnessData' => $fitnessData])
+            @include('partials.target-calorie-card', ['fitnessData' => $fitnessData ?? null])
         </div>
 
-        <div class="hidden sm:block [&>div]:gap-10 [&>div]:flex [&>div]:mb-1 [&>div]:justify-end mx-auto">
-           @include('partials.guidelins-data-card')
+        <div class="sm:border-r pr-2 border-gray-500">
+           @include('partials.nutrition-data-card', ['nutritionData' => $nutritionData])
         </div>
     </div>
 </x-layout>

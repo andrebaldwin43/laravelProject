@@ -1,14 +1,30 @@
-<h1 class="text-lg font-bold mb-4 text-center">Daily Calories</h1>
-<div class="text-center">
-    @error('daily_calories')
-        <p class="text-red-500 text-sm">{{ $message }}</p>
-    @enderror
-    <form id="target-calorie-form" method="POST" action="{{ route('calorie.store') }}">
-        @csrf
-        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-        <x-form.input class="text-center" value="{{ $fitnessData['daily_calories'] ?? 0 }}" name="daily_calories" label="" type="text" placeholder="Enter target calories" required></x-form.input>
-    </form>
+<h1 class="text-lg font-bold mb-4 text-center">Daily Goals</h1>
+@if(isset($fitnessData['daily_calories']) && $fitnessData['daily_calories'])
+    <div class="h-1/2 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 mb-2">
+        <div>
+            <p>Calories: </p>
+            <p>{{ number_format($fitnessData['daily_calories'] ?? 0, 0) }} kcal</p>
+        </div>
+        <div>
+            <p>Carbs: </p>
+            <p>{{ number_format($fitnessData['carbs'] ?? 0, 0) }} g</p>
+        </div>
+        <div>
+            <p>Protein: </p>
+            <p>{{ number_format($fitnessData['protein'] ?? 0, 0) }} g</p>
+        </div>
+        <div>
+            <p>Fat: </p>
+            <p>{{ number_format($fitnessData['fat'] ?? 0, 0) }} g</p>
+        </div>
+    </div>
+@else
+    <div class="h-1/2 text-center">
+        <p class="text-red-500">No daily goals set.</p>
+    </div>
+@endif
+
+<div class="justify-center flex mt-auto">
+    <x-link class="bg-green-700 hover:bg-green-900 hover:text-white text-white rounded py-1! px-4!" title="" href="{{ route('calorie.edit') }}">{{ 'Edit' }}</x-link>
 </div>
-<div class="text-center mt-2">
-    <x-form.button class="py-1! px-4! mt-0!" form="target-calorie-form" title="{{ $fitnessData ? 'Update Calories' : 'Add Calories' }}" type="submit"></x-form.button>
-</div>
+

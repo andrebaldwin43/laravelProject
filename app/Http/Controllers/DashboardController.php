@@ -22,11 +22,6 @@ class DashboardController extends Controller
         $carbs   = (int) ($nutritionData['carbohydrate'] ?? 0);
         $remainingCalories = max($goalCalories - (int)($nutritionData['calories'] ?? 0), 0);
 
-        if ($fitnessData) {
-            $fitnessMetrics = $fitnessService->getFitnessMetrics($fitnessData);
-            $fitnessData = array_merge($fitnessData ? $fitnessData->toArray() : [], $fitnessMetrics);
-        } 
-
         return view('dashboard', compact(
             'fitnessData', 
             'nutritionData', 

@@ -18,7 +18,7 @@
 @endphp
 
 <div id="{{ $id }}"
-     class="bg-white rounded-xl p-2 shadow-sm"
+     {{ $attributes->merge(['class' => 'bg-white rounded-xl p-2 shadow-sm']) }}
      data-circumference="{{ $circumference }}"
      data-max="{{ $max }}">
     <h2 class="text-lg font-bold leading-none">{{ $title }}</h2>
@@ -26,7 +26,7 @@
         <p class="text-gray-500 text-sm mt-1 mb-4">{{ $subtitle }}</p>
     @endif
 
-    <div class="relative w-45 h-25 mx-auto">
+    <div {{ $attributes->merge(['class' => 'relative w-45 h-25 mx-auto']) }}>
         <svg class="w-full h-full -rotate-90" viewBox="0 0 160 160">
             <circle cx="80" cy="80" r="{{ $radius }}" fill="none" stroke="#EEF1F6" stroke-width="12" />
             <circle data-ring

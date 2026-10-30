@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('fitness', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
             $table->decimal('current_weight', 8, 2)->nullable();
             $table->decimal('target_weight', 8, 2)->nullable();
             $table->string('height')->nullable();
             $table->integer('age')->nullable();
             $table->string('sex')->nullable();
-            $table->integer('daily_calories')->nullable();
             $table->timestamps();
         }); 
     }

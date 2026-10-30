@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use App\Models\Fitness;
-use App\Models\Calorie;
+use App\Models\Macro;
 
 #[Fillable(['name', 'email', 'password', 'password_last_updated'])]
 #[Hidden(['password', 'remember_token'])]
@@ -35,13 +35,13 @@ class User extends Authenticatable implements CanResetPassword
         ];
     }
 
-    public function fitness(): HasMany
+    public function fitness(): HasOne
     {
-        return $this->hasMany(Fitness::class);
+        return $this->hasOne(Fitness::class);
     }
 
-    public function calorie(): HasMany
+    public function macro(): HasOne
     {
-        return $this->hasMany(Calorie::class);
+        return $this->hasOne(Macro::class);
     }
 }

@@ -32,6 +32,8 @@
             'proteinGoal' => $proteinGoal ?: 1,
             'carbs' => $carbs,
             'carbsGoal' => $carbsGoal ?: 1,
+            'fat' => $fat,
+            'fatGoal' => $fatGoal ?: 1,
         ])
     </div>
 

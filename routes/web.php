@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\FitnessController;
 use App\Http\Controllers\NutritionController;
+use App\Http\Controllers\MacroController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -48,8 +49,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('calorie', [\App\Http\Controllers\CalorieController::class, 'store'])->name('calorie.store');
-    Route::get('calorie/edit', [\App\Http\Controllers\CalorieController::class, 'edit'])->name('calorie.edit');
+    Route::post('macro', [\App\Http\Controllers\MacroController::class, 'store'])->name('macro.store');
+    Route::get('macro/edit', [\App\Http\Controllers\MacroController::class, 'edit'])->name('macro.edit');
 });
 
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->middleware('guest')->name('password.request');

@@ -5,7 +5,7 @@
     'value' => 0,      // current number shown in the center
     'max' => 1,        // used to compute ring fill
     'label' => '',
-    'color' => '#0B72FF',
+    'color' => '',
 ])
 
 @php

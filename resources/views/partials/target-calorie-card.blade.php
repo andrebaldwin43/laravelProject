@@ -1,4 +1,4 @@
-<h1 class="text-lg font-bold mb-4 text-center">Daily Goals</h1>
+<h1 class="text-lg font-bold mb-4 text-center">Daily Macro Goals</h1>
 @if(isset($macroData['daily_calories']) && $macroData['daily_calories'])
     <div class="h-1/2 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 mb-2">
         <div>

@@ -11,7 +11,7 @@
 
         <div class="[&_h2]:text-center">
             <x-progress-ring class="h-60 shadow-none!" id="ring-calories" title="Calories"
-                :value="$remainingCalories" :max="$goalCalories" label="Remaining" />
+                :value="$remainingCalories" :max="$goalCalories" label="Remaining" color="{{ $remainingCalories < $goalCalories * 0.25 ? '#FBBF24' : '#0B72FF' }}" />
         </div>
 
         <div>
@@ -19,21 +19,16 @@
         </div>
     </div>
 
-    <div id="dashboard-config"
-        data-totals-url="{{ route('nutrition.totals') }}"
-        class="hidden">
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-2 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
+    <div class="group grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-2 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
         @include('partials.progress-ring-card', [
             'remainingCalories' => $remainingCalories,
-            'goalCalories' => $goalCalories ?: 1,
-            'protein' => $protein,
-            'proteinGoal' => $proteinGoal ?: 1,
-            'carbs' => $carbs,
-            'carbsGoal' => $carbsGoal ?: 1,
-            'fat' => $fat,
-            'fatGoal' => $fatGoal ?: 1,
+            'goalCalories'      => $goalCalories,
+            'remainingProtein'  => $remainingProtein,
+            'proteinGoal'       => $proteinGoal,
+            'remainingCarbs'    => $remainingCarbs,
+            'carbsGoal'         => $carbsGoal,
+            'remainingFat'      => $remainingFat,
+            'fatGoal'           => $fatGoal,
         ])
     </div>
 

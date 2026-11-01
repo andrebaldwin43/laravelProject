@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Nutrition\NutritionService;
 use App\Services\Nutrition\NutritionApiService;
 use App\Services\Nutrition\NutritionDataParserService;
 use Illuminate\Http\Request;
 use App\Models\Nutrition;
-use App\Models\Fitness;
+use App\Models\Macro;
 
 class NutritionController extends Controller
 {
     public function __construct()
     {
         $this->nutritionApiService = app(NutritionApiService::class);
+        $this->nutritionService = app(NutritionService::class);
     }
 
     public function index()
@@ -98,52 +100,18 @@ class NutritionController extends Controller
         Nutrition::create(array_merge(['user_id' => auth()->id()], $validated));
 
         if ($request->wantsJson() || $request->ajax()) {
-            $fitness = Fitness::where('user_id', auth()->id())->first();
-            $daily   = Nutrition::getDailyNutritionForUser(auth()->id());
+            $userId = auth()->id();
 
-            $calorieGoal = (int) ($fitness->daily_calories ?? 0);
-            $proteinGoal = (int) ($fitness->daily_protein ?? 0);
-            $carbsGoal   = (int) ($fitness->daily_carbs ?? 0);
-
-            $eatenCalories = (int) ($daily['calories'] ?? 0);
-            $remaining     = max($calorieGoal - $eatenCalories, 0);
-
-            $responseData = [
-                'goalCalories'      => $calorieGoal,
-                'remainingCalories' => $remaining,
-                'protein'           => (int) ($daily['protein'] ?? 0),
-                'carbohydrate'      => (int) ($daily['carbohydrate'] ?? 0),
-                'proteinGoal'       => $proteinGoal,
-                'carbsGoal'         => $carbsGoal,
-            ];
-
-            return response()->json(['data' => $responseData]);
+            return response()->json([
+                'data' => $this->nutritionService->totalsForUser(
+                    $userId,
+                    Macro::where('user_id', $userId)->first(),
+                    Nutrition::getDailyNutritionForUser($userId)
+                ),
+            ]);
         }
 
         return redirect()->route('dashboard')->with('success', 'Nutrition data added successfully.');
-    }
-
-    public function totals(Request $request)
-    {
-        $fitness = Fitness::where('user_id', auth()->id())->first();
-        $daily   = Nutrition::getDailyNutritionForUser(auth()->id());
-
-        $goalCalories = (int) ($fitness->daily_calories ?? 0);
-        $proteinGoal  = (int) ($fitness->daily_protein ?? 0);
-        $carbsGoal    = (int) ($fitness->daily_carbs ?? 0);
-
-        $eatenCalories = (int) ($daily['calories'] ?? 0);
-
-        return response()->json([
-            'data' => [
-                'goalCalories'      => $goalCalories,
-                'remainingCalories' => max($goalCalories - $eatenCalories, 0),
-                'protein'           => (int) ($daily['protein'] ?? 0),
-                'carbohydrate'      => (int) ($daily['carbohydrate'] ?? 0),
-                'proteinGoal'       => $proteinGoal,
-                'carbsGoal'         => $carbsGoal,
-            ],
-        ]);
     }
 
     public function showNutritionForm()

@@ -1,10 +1,6 @@
 <h1>Daily Nutrition</h1>
 @if ($nutritionData)
-    <div class="h-3/4 [&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 mb-2">
-        <div>
-            <p>Fat: </p>
-            <p>{{ number_format($nutritionData['fat'] ?? 0, 0) }} g</p>
-        </div>
+    <div class="[&>div]:justify-between [&>div]:flex flex-col [&>div]:mb-1 mb-2">
         <div>
             <p>Fiber: </p>
             <p>{{ number_format($nutritionData['fiber'] ?? 0, 0) }} g</p>

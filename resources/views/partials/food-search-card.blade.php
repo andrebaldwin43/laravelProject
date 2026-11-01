@@ -53,8 +53,6 @@
                 @foreach (session('nutritionData') as $key => $value)
                     <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                 @endforeach
-
-                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
             </form>
 
             

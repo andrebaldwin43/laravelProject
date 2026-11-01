@@ -1,8 +1,6 @@
 (function () {
   function getConfig() {
-    const el = document.getElementById('dashboard-config');
     return {
-      totalsUrl: el?.dataset?.totalsUrl || '',
       csrfToken: document.querySelector('meta[name="csrf-token"]')?.content || '',
     };
   }
@@ -27,26 +25,12 @@
   function applyTotals(data) {
     if (!data) return;
     setRing('ring-calories', data.remainingCalories, data.goalCalories);
-    setRing('ring-protein', data.protein, data.proteinGoal);
-    setRing('ring-carbs', data.carbohydrate, data.carbsGoal);
-  }
-
-  async function hydrateFromServer() {
-    const { totalsUrl } = getConfig();
-    if (!totalsUrl) return;
-    const res = await fetch(totalsUrl, {
-      headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-      credentials: 'same-origin',
-      cache: 'no-store',
-    });
-    if (!res.ok) throw new Error('Totals request failed: ' + res.status);
-    const payload = await res.json();
-    applyTotals(payload.data);
+    setRing('ring-protein', data.remainingProtein, data.proteinGoal);
+    setRing('ring-carbs', data.remainingCarbs, data.carbsGoal);
+    setRing('ring-fat', data.remainingFat, data.fatGoal);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    hydrateFromServer().catch(console.error);
-
     // Delegated submit handler (works even if form is replaced/re-rendered)
     document.addEventListener('submit', async (e) => {
       const form = e.target;
@@ -85,9 +69,5 @@
         if (submitBtn) submitBtn.disabled = false;
       }
     }, true); // capture phase to intercept early
-  });
-
-  window.addEventListener('pageshow', () => {
-    hydrateFromServer().catch(console.error);
   });
 })();

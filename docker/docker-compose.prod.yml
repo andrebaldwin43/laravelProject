@@ -11,11 +11,6 @@ services:
       - ../certs/aiven-ca.pem:/etc/ssl/certs/aiven-ca.pem:ro
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 5s
-      timeout: 5s
-      retries: 3
 
   webserver:
     build:
@@ -24,8 +19,7 @@ services:
     image: laravel-nginx:latest
     restart: unless-stopped
     depends_on:
-      app:
-        condition: service_healthy
+      - app
     ports:
       - "80:80"
     networks:

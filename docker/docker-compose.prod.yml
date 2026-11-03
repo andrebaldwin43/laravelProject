@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: laravel-app:latest
+    restart: unless-stopped
+    env_file:
+      - ../.env.prod
+    volumes:
+      - ../certs/aiven-ca.pem:/etc/ssl/certs/aiven-ca.pem:ro
+
+  webserver:
+    build:
+      context: ..
+      dockerfile: docker/nginx.Dockerfile
+    image: laravel-nginx:latest
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"

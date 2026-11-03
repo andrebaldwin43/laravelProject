@@ -1,0 +1,5 @@
+.env
+.env.prod
+.git
+vendor
+node_modules

@@ -21,5 +21,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 COPY . .
+RUN cp certs/aiven-ca.pem /etc/ssl/certs/aiven-ca.pem
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader \
     && chown -R www-data:www-data storage bootstrap/cache

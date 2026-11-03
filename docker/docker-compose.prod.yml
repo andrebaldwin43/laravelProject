@@ -9,6 +9,8 @@ services:
       - ../.env.prod
     volumes:
       - ../certs/aiven-ca.pem:/etc/ssl/certs/aiven-ca.pem:ro
+    networks:
+      - app-network
 
   webserver:
     build:
@@ -20,3 +22,9 @@ services:
       - app
     ports:
       - "80:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

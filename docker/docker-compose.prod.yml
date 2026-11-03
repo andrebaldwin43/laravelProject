@@ -5,24 +5,5 @@ services:
       dockerfile: docker/Dockerfile
     image: laravel-app:latest
     restart: unless-stopped
-    volumes:
-      - ../certs/aiven-ca.pem:/etc/ssl/certs/aiven-ca.pem:ro
-    networks:
-      - app-network
-
-  webserver:
-    build:
-      context: ..
-      dockerfile: docker/nginx.Dockerfile
-    image: laravel-nginx:latest
-    restart: unless-stopped
-    depends_on:
-      - app
     ports:
       - "80:80"
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge

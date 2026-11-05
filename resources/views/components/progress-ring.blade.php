@@ -26,7 +26,7 @@
         <p class="text-gray-500 text-sm mt-1 mb-4">{{ $subtitle }}</p>
     @endif
 
-    <div {{ $attributes->merge(['class' => 'relative w-45 h-25 mx-auto']) }}>
+    <div {{ $attributes->merge(['class' => 'relative w-45 h-30 mx-auto']) }}>
         <svg class="w-full h-full -rotate-90" viewBox="0 0 160 160">
             <circle cx="80" cy="80" r="{{ $radius }}" fill="none" stroke="#EEF1F6" stroke-width="12" />
             <circle data-ring
@@ -40,7 +40,7 @@
 
         <div class="absolute inset-0 flex flex-col items-center justify-center">
             <div data-value class="text-lg font-bold leading-none">{{ number_format($value) }}</div>
-            <div class="text-xs">{{ $label }}</div>
+            <div class="text-sm text-gray-600">{{ $label }}</div>
         </div>
     </div>
 </div>

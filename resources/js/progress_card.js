@@ -22,12 +22,35 @@
     valueEl.textContent = v.toLocaleString(undefined, { maximumFractionDigits: 1 });
   }
 
+  function setDailyNutrition(daily) {
+    const root = document.getElementById('daily-nutrition');
+    if (!root || !daily) return;
+
+    const hasData = Object.keys(daily).length > 0;
+    root.querySelector('[data-nutrition-list]')?.classList.toggle('hidden', !hasData);
+    root.querySelector('[data-nutrition-empty]')?.classList.toggle('hidden', hasData);
+
+    const link = document.querySelector('[data-nutrition-link]');
+    if (link) link.textContent = hasData ? 'Update Nutrition' : 'Add Nutrition';
+
+    const units = { fiber: 'g', sugar: 'g', cholesterol: 'mg', sodium: 'mg', saturated_fat: 'g' };
+    root.querySelectorAll('[data-nutrient]').forEach((el) => {
+      const key = el.dataset.nutrient;
+      const n = Math.round(Number(daily[key]) || 0);
+      el.textContent = `${n.toLocaleString()} ${units[key] || ''}`.trim();
+    });
+  }
+
   function applyTotals(data) {
     if (!data) return;
+    setDailyNutrition(data.daily);
     setRing('ring-calories', data.remainingCalories, data.goalCalories);
     setRing('ring-protein', data.remainingProtein, data.proteinGoal);
     setRing('ring-carbs', data.remainingCarbs, data.carbsGoal);
     setRing('ring-fat', data.remainingFat, data.fatGoal);
+    if (window.setDailyNutrition && data.daily) {
+      window.setDailyNutrition(data.daily);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {

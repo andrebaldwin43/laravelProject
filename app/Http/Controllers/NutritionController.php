@@ -101,13 +101,12 @@ class NutritionController extends Controller
 
         if ($request->wantsJson() || $request->ajax()) {
             $userId = auth()->id();
+            $daily  = Nutrition::getDailyNutritionForUser($userId);
+            $macros = Macro::where('user_id', $userId)->first();
+            $totals = $this->nutritionService->totalsForUser($userId, $macros, $daily);
 
             return response()->json([
-                'data' => $this->nutritionService->totalsForUser(
-                    $userId,
-                    Macro::where('user_id', $userId)->first(),
-                    Nutrition::getDailyNutritionForUser($userId)
-                ),
+                'data' => [...$totals, 'daily' => $daily],
             ]);
         }
 

@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="group grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-2 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
+    <div class="group grid grid-cols-1 sm:grid-cols-3 gap-4 bg-[#dbe6eb] p-2 mt-6 rounded-lg shadow-sm [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-center [&_h1]:mb-4">
         @include('partials.progress-ring-card', [
             'remainingCalories' => $remainingCalories,
             'goalCalories'      => $goalCalories,

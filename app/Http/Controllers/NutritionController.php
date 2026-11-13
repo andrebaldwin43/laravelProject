@@ -6,6 +6,7 @@ use App\Services\Nutrition\NutritionService;
 use App\Services\Nutrition\NutritionApiService;
 use App\Services\Nutrition\NutritionDataParserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Nutrition;
 use App\Models\Macro;
 
@@ -97,18 +98,24 @@ class NutritionController extends Controller
             'saturated_fat' => 'nullable|numeric|min:0',
         ]);
 
-        Nutrition::create(array_merge(['user_id' => auth()->id()], $validated));
-
         if ($request->wantsJson() || $request->ajax()) {
             $userId = auth()->id();
-            $daily  = Nutrition::getDailyNutritionForUser($userId);
-            $macros = Macro::where('user_id', $userId)->first();
-            $totals = $this->nutritionService->totalsForUser($userId, $macros, $daily);
 
-            return response()->json([
-                'data' => [...$totals, 'daily' => $daily],
-            ]);
+            // Rollback the transaction if anything goes wrong within the response handling.
+            return DB::transaction(function () use ($validated, $userId) {
+                Nutrition::create(array_merge(['user_id' => $userId], $validated));
+
+                $daily  = Nutrition::getDailyNutritionForUser($userId);
+                $macros = Macro::where('user_id', $userId)->first();
+                $totals = $this->nutritionService->totalsForUser($userId, $macros, $daily);
+
+                return response()->json([
+                    'data' => [...$totals, 'daily' => $daily],
+                ]);
+            });
         }
+
+        Nutrition::create(array_merge(['user_id' => auth()->id()], $validated));
 
         return redirect()->route('dashboard')->with('success', 'Nutrition data added successfully.');
     }

@@ -57,13 +57,18 @@
     // Delegated submit handler (works even if form is replaced/re-rendered)
     document.addEventListener('submit', async (e) => {
       const form = e.target;
+      
+      // Only handle the add-nutrition-form
       if (!(form instanceof HTMLFormElement)) return;
       if (form.id !== 'add-nutrition-form') return;
 
+      // Prevent the default form submission and handle it via AJAX
       e.preventDefault();
       e.stopPropagation();
 
       const submitBtn = form.querySelector('[type="submit"]');
+      
+      // Disable the submit button to prevent multiple submissions
       if (submitBtn) submitBtn.disabled = true;
 
       try {
@@ -87,9 +92,9 @@
         document.getElementById('food-lookup')?.classList.remove('hidden');
         document.getElementById('nutrition-data')?.classList.add('hidden');
       } catch (err) {
-        console.error(err);
+          console.error(err);
       } finally {
-        if (submitBtn) submitBtn.disabled = false;
+          if (submitBtn) submitBtn.disabled = false;
       }
     }, true); // capture phase to intercept early
   });
